@@ -141,23 +141,27 @@
             75%{transform:translate(-30px,-15px) scale(1.05)}
         }
 
-        /* ===== LOADING SCREEN ===== */
+        /* ===== LIGHTER LOADING SCREEN ===== */
         #loading-screen{
             position:fixed;inset:0;z-index:10000;background:var(--slate-deepest);
             display:flex;align-items:center;justify-content:center;
-            transition:opacity 0.6s var(--ease-silk),visibility 0.6s;
+            transition:opacity 0.4s var(--ease-silk),visibility 0.4s;
         }
         #loading-screen.hide{opacity:0;visibility:hidden;pointer-events:none}
         .loader{text-align:center}
-        .loader-ring{
-            width:56px;height:56px;margin:0 auto 20px;
-            border:3px solid var(--slate-border);border-top-color:var(--sky-accent);
-            border-radius:50%;animation:spin 0.8s linear infinite;
+        .loader-pulse{
+            width:48px;height:48px;margin:0 auto 16px;
+            border-radius:50%;background:var(--sky-accent);
+            animation:pulse 1.2s ease-in-out infinite;
+            box-shadow:0 0 20px var(--sky-glow-strong);
         }
-        @keyframes spin{to{transform:rotate(360deg)}}
-        .loader-text{font-family:var(--font-display);font-size:1rem;color:var(--text-muted);letter-spacing:0.15em;text-transform:uppercase}
+        @keyframes pulse{
+            0%,100%{transform:scale(0.8);opacity:0.7;}
+            50%{transform:scale(1);opacity:1;}
+        }
+        .loader-text{font-family:var(--font-display);font-size:0.95rem;color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase}
 
-        /* ===== STICKY NAVIGATION ===== */
+        /* ===== STICKY NAVIGATION (desktop) ===== */
         #main-nav{
             position:fixed;top:0;left:0;right:0;z-index:9999;
             background:rgba(10,15,24,0.78);backdrop-filter:blur(20px) saturate(180%);
@@ -867,10 +871,10 @@
 </head>
 <body>
 
-    <!-- Loading Screen -->
+    <!-- Optimized Loading Screen -->
     <div id="loading-screen">
         <div class="loader">
-            <div class="loader-ring"></div>
+            <div class="loader-pulse"></div>
             <div class="loader-text">Chifuniro Banda</div>
         </div>
     </div>
@@ -901,7 +905,7 @@
         </div>
     </nav>
 
-    <!-- ===== MOBILE BOTTOM APP NAVIGATION (visible only on small screens) ===== -->
+    <!-- ===== MOBILE BOTTOM APP NAVIGATION ===== -->
     <nav class="bottom-mobile-nav" id="bottom-mobile-nav" role="navigation" aria-label="Mobile app navigation">
         <a href="#hero" class="nav-icon active" data-section="hero">
             <i class="fas fa-home"></i>
@@ -957,9 +961,10 @@
                 </div>
                 <div class="hero-visual">
     <div class="hero-portrait-frame" aria-hidden="true">
-        <!-- Your profile picture -->
+        <!-- Lazy-loaded profile picture -->
         <img src="images/profile.jpg.png" 
              alt="Chifuniro Banda" 
+             loading="lazy" decoding="async"
              style="width:100%; height:100%; object-fit:cover;"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
         <!-- Fallback placeholder if image fails to load -->
@@ -1012,7 +1017,7 @@
             <h2 class="section-title reveal reveal-delay-1" id="about-title">Passionate Educator. Inclusive Advocate. Lifelong Learner.</h2>
             <div class="about-grid" style="margin-top:50px">
                 <div class="about-image-frame reveal" aria-hidden="true">
-               <img src="images/profile.jpg.png" alt="Chifuniro Banda" style="width:100%;height:100%;object-fit:cover;">
+               <img src="images/profile.jpg.png" alt="Chifuniro Banda" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;">
                 </div>
                 <div class="about-text reveal reveal-delay-1">
                     <h3>Chifuniro Banda</h3>
@@ -1244,7 +1249,7 @@
             <div class="blog-grid" style="margin-top:40px">
                 <div class="blog-card reveal">
                     <div class="blog-thumb">
-                        <img src="images/community.jpg" alt="Community outreach" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
+                        <img src="images/community.jpg" alt="Community outreach" loading="lazy" decoding="async" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
                     </div>
                     <div class="blog-body">
                         <span class="blog-category">Community Outreach</span>
@@ -1254,7 +1259,7 @@
                 </div>
                 <div class="blog-card reveal reveal-delay-1">
                     <div class="blog-thumb">
-                        <img src="images/interactive.png" alt="Literacy clubs" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
+                        <img src="images/interactive.png" alt="Literacy clubs" loading="lazy" decoding="async" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
                     </div>
                     <div class="blog-body">
                         <span class="blog-category">Learner Support</span>
@@ -1264,7 +1269,7 @@
                 </div>
                 <div class="blog-card reveal reveal-delay-2">
                     <div class="blog-thumb">
-                        <img src="images/dyc1.jpg" alt="Inclusive campaign" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
+                        <img src="images/dyc1.jpg" alt="Inclusive campaign" loading="lazy" decoding="async" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
                     </div>
                     <div class="blog-body">
                         <span class="blog-category">Awareness Campaigns</span>
@@ -1303,7 +1308,7 @@
             <div class="blog-grid" style="margin-top:40px">
                 <div class="blog-card reveal">
                     <div class="blog-thumb">
-                        <img src="images/research1.jpg" alt="Research paper" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
+                        <img src="images/research1.jpg" alt="Research paper" loading="lazy" decoding="async" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
                     </div>
                     <div class="blog-body">
                         <span class="blog-category">Research Paper</span>
@@ -1313,7 +1318,7 @@
                 </div>
                 <div class="blog-card reveal reveal-delay-1">
                     <div class="blog-thumb">
-                        <img src="images/research2.jpg" alt="Educational article" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
+                        <img src="images/research2.jpg" alt="Educational article" loading="lazy" decoding="async" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
                     </div>
                     <div class="blog-body">
                         <span class="blog-category">Educational Article</span>
@@ -1323,7 +1328,7 @@
                 </div>
                 <div class="blog-card reveal reveal-delay-2">
                     <div class="blog-thumb">
-                        <img src="images/research3.jpg" alt="Resource toolkit" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
+                        <img src="images/research3.jpg" alt="Resource toolkit" loading="lazy" decoding="async" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
                     </div>
                     <div class="blog-body">
                         <span class="blog-category">Resource</span>
@@ -1365,59 +1370,59 @@
         </div>
     </section>
 
-    <!-- ===== 12. GALLERY (EXPANDED WITH REAL IMAGE SLOTS) ===== -->
+    <!-- ===== 12. GALLERY (LAZY LOADED IMAGES) ===== -->
     <section id="gallery" class="bg-slate-deep" aria-labelledby="gallery-title">
         <div class="section-inner">
             <div class="section-label reveal">Gallery</div>
             <h2 class="section-title reveal reveal-delay-1" id="gallery-title">Moments & Milestones</h2>
             <div class="gallery-grid reveal reveal-delay-2" style="margin-top:40px">
-                <!-- Gallery items: replace src with your actual image paths in the images/ folder -->
+                <!-- Gallery items: all images now lazy loaded -->
                 <div class="gallery-item" onclick="openLightbox(this)" aria-label="Gallery image 1">
-                    <img src="images/sports.jpg" alt="Teaching session" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
+                    <img src="images/sports.jpg" alt="Teaching session" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
                     <div class="gallery-overlay">Sports Session — Able Foundation</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)" aria-label="Gallery image 2">
-                    <img src="images/dyc.jfif" alt="Community outreach" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
+                    <img src="images/dyc.jfif" alt="Community outreach" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
                     <div class="gallery-overlay">Community Outreach — Dyslexia Awareness</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)" aria-label="Gallery image 3">
-                    <img src="images/gala.jpg" alt="Graduation MAGU" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
+                    <img src="images/gala.jpg" alt="Graduation MAGU" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
                     <div class="gallery-overlay">Graduation — MAGU, November 2025</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)" aria-label="Gallery image 4">
-                    <img src="images/able.jpeg" alt="Advocacy meeting" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
+                    <img src="images/able.jpeg" alt="Advocacy meeting" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
                     <div class="gallery-overlay">Advocacy Meeting — Able Foundation</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)" aria-label="Gallery image 5">
-                    <img src="images/foundation.jpg" alt="Literacy club" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
+                    <img src="images/foundation.jpg" alt="Literacy club" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
                     <div class="gallery-overlay">Literacy Club — Community Learners</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)" aria-label="Gallery image 6">
-                    <img src="images/santhe.jpg" alt="Teaching practice" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
+                    <img src="images/santhe.jpg" alt="Teaching practice" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
                     <div class="gallery-overlay">Teaching Practice — Santhe Secondary</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)" aria-label="Gallery image 7">
-                    <img src="images/community.jpg" alt="School event" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
+                    <img src="images/community.jpg" alt="School event" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
                     <div class="gallery-overlay">School Event — Cultural Day</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)" aria-label="Gallery image 8">
-                    <img src="images/magu8.jpg" alt="Workshop" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
+                    <img src="images/magu8.jpg" alt="Workshop" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
                     <div class="gallery-overlay">Teacher Workshop — Inclusive Practices</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)" aria-label="Gallery image 9">
-                    <img src="images/teachers.jpg" alt="Community talk" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
+                    <img src="images/teachers.jpg" alt="Community talk" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
                     <div class="gallery-overlay">Community Talk — Dyslexia Myths</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)" aria-label="Gallery image 10">
-                    <img src="images/magu.jpg" alt="Classroom activity" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
+                    <img src="images/magu.jpg" alt="Classroom activity" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
                     <div class="gallery-overlay">Theatre For Development — Acting and Perfomance</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)" aria-label="Gallery image 11">
-                    <img src="images/macra.jpg" alt="Award ceremony" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
+                    <img src="images/macra.jpg" alt="Award ceremony" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
                     <div class="gallery-overlay">MACRA ICT — Innovation Award</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)" aria-label="Gallery image 12">
-                    <img src="images/interactive.png" alt="Student interaction" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
+                    <img src="images/interactive.png" alt="Student interaction" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('fallback'); this.style.display='none';">
                     <div class="gallery-overlay">After-School Literacy Clubs — Santhe Secondary School</div>
                 </div>
             </div>
@@ -1480,7 +1485,7 @@
             <div class="blog-grid" style="margin-top:40px">
                 <div class="blog-card reveal">
                     <div class="blog-thumb">
-                        <img src="images/blog1.png" alt="Inclusive education" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
+                        <img src="images/blog1.png" alt="Inclusive education" loading="lazy" decoding="async" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
                     </div>
                     <div class="blog-body">
                         <span class="blog-category">Inclusive Education</span>
@@ -1490,7 +1495,7 @@
                 </div>
                 <div class="blog-card reveal reveal-delay-1">
                     <div class="blog-thumb">
-                        <img src="images/blog2.png" alt="Dyslexia awareness" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
+                        <img src="images/blog2.png" alt="Dyslexia awareness" loading="lazy" decoding="async" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
                     </div>
                     <div class="blog-body">
                         <span class="blog-category">Dyslexia</span>
@@ -1500,7 +1505,7 @@
                 </div>
                 <div class="blog-card reveal reveal-delay-2">
                     <div class="blog-thumb">
-                        <img src="images/blog3.png" alt="Literacy strategies" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
+                        <img src="images/blog3.png" alt="Literacy strategies" loading="lazy" decoding="async" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,var(--slate-surface),var(--slate-mid))';">
                     </div>
                     <div class="blog-body">
                         <span class="blog-category">Literacy</span>
@@ -1712,14 +1717,26 @@
     <script>
     /* ===== PURE VANILLA JAVASCRIPT ===== */
 
-    // --- LOADING SCREEN ---
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            document.getElementById('loading-screen').classList.add('hide');
-        }, 600);
+    // --- QUICK LOADING SCREEN (HIDE AFTER DOM READY) ---
+    document.addEventListener('DOMContentLoaded', function() {
+        const loader = document.getElementById('loading-screen');
+        if (loader) {
+            // Hide after a short delay, even before all images load
+            setTimeout(function() {
+                loader.classList.add('hide');
+            }, 400);
+        }
     });
 
-    // --- PARTICLES ---
+    // Also hide after window load as fallback
+    window.addEventListener('load', function() {
+        const loader = document.getElementById('loading-screen');
+        if (loader && !loader.classList.contains('hide')) {
+            loader.classList.add('hide');
+        }
+    });
+
+    // --- PARTICLES (unchanged) ---
     (function createParticles() {
         const container = document.getElementById('particles-container');
         for (let i = 0; i < 40; i++) {
@@ -1732,7 +1749,7 @@
         }
     })();
 
-    // --- STICKY NAVIGATION SCROLL BEHAVIOR (desktop only, still runs but hidden on mobile) ---
+    // --- STICKY NAVIGATION SCROLL BEHAVIOR (desktop only, hidden on mobile) ---
     const nav = document.getElementById('main-nav');
     let lastScrollY = 0;
     let scrollTimeout;
@@ -1740,7 +1757,7 @@
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
 
-        if (nav) {
+        if (nav && getComputedStyle(nav).display !== 'none') {
             if (currentScrollY > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
 
@@ -1755,7 +1772,7 @@
 
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
-            if (nav) nav.classList.remove('hidden');
+            if (nav && getComputedStyle(nav).display !== 'none') nav.classList.remove('hidden');
         }, 2000);
     });
 
@@ -1809,7 +1826,7 @@
     }
     window.addEventListener('scroll', updateActiveNav);
 
-    // --- SCROLL REVEAL ANIMATIONS (IntersectionObserver) ---
+    // --- SCROLL REVEAL ANIMATIONS (unchanged) ---
     const revealElements = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -1819,7 +1836,7 @@
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // --- ANIMATED COUNTERS ---
+    // --- ANIMATED COUNTERS (unchanged) ---
     const counterElements = document.querySelectorAll('.counter');
     let countersAnimated = false;
 
@@ -1849,7 +1866,7 @@
     window.addEventListener('scroll', animateCounters);
     window.addEventListener('load', () => setTimeout(animateCounters, 300));
 
-    // --- TYPING EFFECT ---
+    // --- TYPING EFFECT (unchanged) ---
     (function typingEffect() {
         const typedEl = document.querySelector('#typing-text .typed');
         const phrases = [
@@ -1892,7 +1909,7 @@
         }, 530);
     })();
 
-    // --- TESTIMONIAL CAROUSEL ---
+    // --- TESTIMONIAL CAROUSEL (unchanged) ---
     let currentTestimonial = 0;
     const testimonialTrack = document.getElementById('testimonial-track');
     const testimonialDots = document.querySelectorAll('#carousel-dots .carousel-dot');
@@ -1990,7 +2007,7 @@
         });
     });
 
-    // --- CONTACT FORM HANDLER ---
+    // --- CONTACT FORM HANDLER (unchanged) ---
     function handleFormSubmit(event) {
         event.preventDefault();
         const form = event.target;
@@ -2013,7 +2030,7 @@
         }, 1500);
     }
 
-    // --- MOUSE PARALLAX ON FLOATING STATS ---
+    // --- MOUSE PARALLAX ON FLOATING STATS (unchanged) ---
     const heroVisual = document.querySelector('.hero-visual');
     if (heroVisual) {
         document.addEventListener('mousemove', (e) => {
